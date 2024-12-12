@@ -4,11 +4,11 @@ on:
   push:
     branches: [ "main" ]
     paths:
-      - 'storage-provider/**'
+      - 'dev-env/environments/staging/**'
   pull_request:
     branches: [ "main" ]
     paths:
-      - 'storage-provider/**'
+      - 'dev-env/environments/staging/**'
 
 jobs:
   update-readme:
@@ -28,10 +28,10 @@ jobs:
           mv terraform-docs /usr/local/bin/terraform-docs
           cd ..
 
-      - name: Modify README.md storage-provider
+      - name: Modify README.md dev environment
         run: |
-          echo "## Auto-Updated on $(date)" > storage-provider/README.md
-          terraform-docs markdown table --output-file README.md storage-provider
+          echo "## Auto-Updated on $(date)" > dev-env/environments/staging/README.md
+          terraform-docs markdown table --output-file README.md dev-env/environments/staging
       
       - name: Configure Git
         run: |
@@ -40,7 +40,7 @@ jobs:
 
       - name: Commit changes
         run: |
-          git add storage-provider/README.md
+          git add dev-env/environments/staging/README.md
           git commit -m "Auto-update README.md [skip ci]"
           git push origin main
         env:
