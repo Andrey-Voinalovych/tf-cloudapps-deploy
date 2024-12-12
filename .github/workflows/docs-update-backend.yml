@@ -1,4 +1,4 @@
-name: Create auto documentation with terraform-docs
+name: Create auto documentation with terraform-docs for terraform backend
 
 on:
   push:
