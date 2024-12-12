@@ -1,5 +1,5 @@
 resource "azurerm_postgresql_flexible_server" "dev_db_instance" {
-  name                          = "pg-db-manual"
+  name                          = var.pg_db.name
   resource_group_name           = azurerm_resource_group.stage_resource_group.name
   location                      = azurerm_resource_group.stage_resource_group.location
   version                       = var.pg_db.pg_version

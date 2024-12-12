@@ -1,3 +1,4 @@
+// Legacy VPN for services VN from local machines using generated root certificate 
 # module "vpn_gwt" {
 #   source          = "../../modules/vpn-gtw"
 #   resource_prefix = local.resource_prefix

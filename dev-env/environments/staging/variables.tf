@@ -1,4 +1,3 @@
-
 // Azure Environment settings
 
 variable "deployment_environment" {
@@ -37,9 +36,9 @@ variable "subnet_cidrs" {
 }
 
 variable "private_dns_zone_name" {
-  default     = "saft.postgres.database.azure.com"
+  default     = "demo.postgres.database.azure.com"
   type        = string
-  description = "Name of private DNS zone that will be used in Azure to define resource"
+  description = "Name of private DNS zone that will be used in Azure to define DB resource"
 }
 
 
@@ -54,7 +53,7 @@ variable "container_registry_settings" {
     sku           = "Basic"
     admin_enabled = true
   }
-  description = "Parameters for azure container registry that will hold backend core api"
+  description = "Parameters for Azure container registry for app code deployment"
 }
 
 // LOGGING 
@@ -132,12 +131,6 @@ variable "nginx_deployment" {
   }
 }
 
-variable "db_connection_string" {
-  type = string
-}
-variable "jwt_encryption_key" {
-  type = string
-}
 
 // Blob storage container settings
 
@@ -149,11 +142,12 @@ variable "client_separated_storages" {
 
 
 
-// Database Settings
+// Database Variables
 
 variable "pg_db" {
   type = map(string)
   default = {
+    "name"            = "pg-dev-db"
     "pg_version"      = "16"
     "zone"            = "1"
     "storage_size_mb" = "32768"
@@ -187,5 +181,12 @@ variable "pgadmin_password" {
 
 variable "database_host" {
   type = string
+}
 
+// Sensitive env variables
+
+variable "jwt_encryption_key" {
+  type        = string
+  sensitive   = true
+  description = "Default JWT encryption token that should be used in svcs"
 }

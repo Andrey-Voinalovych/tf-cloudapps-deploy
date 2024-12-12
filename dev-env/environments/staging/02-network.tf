@@ -5,7 +5,9 @@ resource "azurerm_virtual_network" "vn" {
   address_space       = [var.virtual_network_cidr]
 }
 
-// Database network
+
+// Legacy to deploy DB instance in separated closed network
+
 # resource "azurerm_subnet" "db_sn" {
 #   name                 = "${local.resource_prefix}-db-sn"
 #   resource_group_name  = azurerm_resource_group.stage_resource_group.name

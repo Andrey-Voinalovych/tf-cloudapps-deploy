@@ -1,6 +1,5 @@
 data "azurerm_client_config" "current" {}
 
-
 resource "azurerm_key_vault" "keyvault" {
   name                       = "${local.resource_prefix}keyvault"
   location                   = azurerm_resource_group.stage_resource_group.location
@@ -29,11 +28,6 @@ resource "azurerm_key_vault" "keyvault" {
   }
 }
 
-resource "azurerm_key_vault_secret" "db_connection_string" {
-  name         = "db-connection-string"
-  value        = var.db_connection_string
-  key_vault_id = azurerm_key_vault.keyvault.id
-}
 
 resource "azurerm_key_vault_secret" "jwt_encryption_key" {
   name         = "jwt-encryption-key"

@@ -12,7 +12,6 @@ variable "region" {
   description = "Azure region in which storage will be created"
 }
 
-
 // Tfstate container settings
 variable "state_storage_containers" {
   default     = ["stage", "prod"]
