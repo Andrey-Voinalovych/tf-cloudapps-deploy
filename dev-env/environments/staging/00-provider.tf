@@ -6,8 +6,8 @@ terraform {
     }
   }
   backend "azurerm" {
-    resource_group_name  = "safttfstatedev-resource-group"
-    storage_account_name = "safttfstatedevstorage"
+    resource_group_name  = "demotfstatedev-resource-group"
+    storage_account_name = "demotfstatedevstorage"
     container_name       = "stage"
     key                  = "terraform.tfstate"
   }

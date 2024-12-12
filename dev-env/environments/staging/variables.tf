@@ -3,7 +3,7 @@
 variable "deployment_environment" {
   default     = "stage"
   type        = string
-  description = "Unified environment type"
+  description = "Unified environment type to use as prefix"
 }
 
 variable "az_subscription_id" {
@@ -63,71 +63,33 @@ variable "log_retention_days" {
 }
 
 
-// Container instance/environment settings 
-
-
-variable "validation_service_deployment" {
-  type = object({
-    container_reg_name   = string
-    container_image_name = string
-    container_image_tag  = string
-  })
+// Container instances settings 
+variable "services_deployment_images" {
+  type = map(object({
+    name = string
+    tag  = string
+  }))
   default = {
-    container_reg_name   = "saftstagecr"
-    container_image_name = "validation-svc"
-    container_image_tag  = "latest"
-  }
-}
-
-variable "decoupling_service_deployment" {
-  type = object({
-    container_reg_name   = string
-    container_image_name = string
-    container_image_tag  = string
-  })
-  default = {
-    container_reg_name   = "saftstagecr"
-    container_image_name = "decoupling-svc"
-    container_image_tag  = "latest"
-  }
-}
-
-variable "auth_service_deployment" {
-  type = object({
-    container_reg_name   = string
-    container_image_name = string
-    container_image_tag  = string
-  })
-  default = {
-    container_reg_name   = "saftstagecr"
-    container_image_name = "authentication-svc"
-    container_image_tag  = "3e623a8"
-  }
-}
-
-variable "web_frontend_deployment" {
-  type = object({
-    container_reg_name   = string
-    container_image_name = string
-    container_image_tag  = string
-  })
-  default = {
-    container_reg_name   = "saftstagecr"
-    container_image_name = "saft-front-end"
-    container_image_tag  = "latest"
-  }
-}
-
-variable "nginx_deployment" {
-  type = object({
-    container_reg_name   = string
-    container_image_name = string
-    container_image_tag  = string
-  })
-  default = {
-    container_reg_name   = "saftstagecr"
-    container_image_name = "nginx-web-srv"
-    container_image_tag  = "init"
+    validation_service = {
+      name = "validation-svc"
+      tag  = "latest"
+    },
+    decoupling_service = {
+      name = "decoupling-svc"
+      tag  = "latest"
+    },
+    auth_service = {
+      name = "authentication-svc"
+      tag  = "3e623a8"
+    },
+    web_frontend = {
+      name = "saft-front-end"
+      tag  = "latest"
+    },
+    nginx = {
+      name = "nginx-web-srv"
+      tag  = "init"
+    }
   }
 }
 

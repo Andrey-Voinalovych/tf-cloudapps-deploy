@@ -19,9 +19,9 @@ module "authentication_svc" {
   source                   = "../../modules/container-app"
   resource_prefix          = local.resource_prefix
   rg_name                  = azurerm_resource_group.stage_resource_group.name
-  container_reg_name       = var.auth_service_deployment.container_reg_name
-  container_image_name     = var.auth_service_deployment.container_image_name
-  container_image_tag      = var.auth_service_deployment.container_image_tag
+  container_reg_name       = azurerm_container_registry.container_registry.name
+  container_image_name     = var.services_deployment_images["auth_service"].name
+  container_image_tag      = var.services_deployment_images["auth_service"].tag
   deployed_app_name        = "authentication"
   container_environment_id = azurerm_container_app_environment.ca_env.id
 
@@ -53,8 +53,8 @@ module "decoupling_svc" {
   resource_prefix          = local.resource_prefix
   rg_name                  = azurerm_resource_group.stage_resource_group.name
   container_reg_name       = azurerm_container_registry.container_registry.name
-  container_image_name     = var.decoupling_service_deployment.container_image_name
-  container_image_tag      = var.decoupling_service_deployment.container_image_tag
+  container_image_name     = var.services_deployment_images["decoupling_service"].name
+  container_image_tag      = var.services_deployment_images["decoupling_service"].tag
   deployed_app_name        = "decoupling"
   container_environment_id = azurerm_container_app_environment.ca_env.id
 
@@ -90,8 +90,8 @@ module "front_end" {
   resource_prefix          = local.resource_prefix
   rg_name                  = azurerm_resource_group.stage_resource_group.name
   container_reg_name       = azurerm_container_registry.container_registry.name
-  container_image_name     = var.web_frontend_deployment.container_image_name
-  container_image_tag      = var.web_frontend_deployment.container_image_tag
+  container_image_name     = var.services_deployment_images["web_frontend"].name
+  container_image_tag      = var.services_deployment_images["web_frontend"].tag
   deployed_app_name        = "webfrontend"
   container_environment_id = azurerm_container_app_environment.ca_env.id
 
@@ -122,8 +122,8 @@ module "nginx" {
   resource_prefix          = local.resource_prefix
   rg_name                  = azurerm_resource_group.stage_resource_group.name
   container_reg_name       = azurerm_container_registry.container_registry.name
-  container_image_name     = var.web_frontend_deployment.container_image_name
-  container_image_tag      = var.web_frontend_deployment.container_image_tag
+  container_image_name     = var.services_deployment_images["nginx"].name
+  container_image_tag      = var.services_deployment_images["nginx"].tag
   deployed_app_name        = "webserver"
   container_environment_id = azurerm_container_app_environment.ca_env.id
 
