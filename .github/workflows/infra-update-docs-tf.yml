@@ -1,0 +1,52 @@
+name: Create auto documentation with terraform-docs
+
+on:
+  push:
+    branches: [ "main" ]
+    paths:
+      - 'dev-env/environments/staging/**'
+  pull_request:
+    branches: [ "main" ]
+    paths:
+      - 'dev-env/environments/staging/**'
+
+jobs:
+  update-readme:
+    if: "!contains(github.event.head_commit.message, '[skip ci]')"
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v2
+
+      - name: Installing terraform-docs
+        run: |
+          mkdir tf-docs && cd tf-docs
+          curl -Lo ./terraform-docs.tar.gz https://github.com/terraform-docs/terraform-docs/releases/download/v0.19.0/terraform-docs-v0.19.0-$(uname)-amd64.tar.gz
+          tar -xzf terraform-docs.tar.gz
+          chmod +x terraform-docs
+          mv terraform-docs /usr/local/bin/terraform-docs
+          cd ..
+
+      - name: Modify README.md dev environment
+        run: |
+          echo "## Auto-Updated on $(date)" > dev-env/environments/staging/README.md
+          terraform-docs markdown table --output-file README.md dev-env/environments/staging
+
+      # - name: Modify README.md storage-provider
+      #   run: |
+      #     echo "## Auto-Updated on $(date)" > terraform/storage-provider/README.md
+      #     terraform-docs markdown table --output-file README.md terraform/storage-provider
+      
+      - name: Configure Git
+        run: |
+          git config --global user.name "github-actions[bot]"
+          git config --global user.email "github-actions[bot]@users.noreply.github.com"
+
+      - name: Commit changes
+        run: |
+          git add dev-env/environments/staging/README.md
+          git commit -m "Auto-update README.md [skip ci]"
+          git push origin main
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
