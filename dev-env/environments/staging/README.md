@@ -1,4 +1,4 @@
-## Auto-Updated on Thu Nov 28 10:44:49 UTC 2024
+## Auto-Updated on Thu Nov 28 10:44:49 UTC 2024 
 
 <!-- BEGIN_TF_DOCS -->
 ## Requirements
