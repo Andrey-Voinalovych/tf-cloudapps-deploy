@@ -32,11 +32,6 @@ jobs:
         run: |
           echo "## Auto-Updated on $(date)" > dev-env/environments/staging/README.md
           terraform-docs markdown table --output-file README.md dev-env/environments/staging
-
-      # - name: Modify README.md storage-provider
-      #   run: |
-      #     echo "## Auto-Updated on $(date)" > terraform/storage-provider/README.md
-      #     terraform-docs markdown table --output-file README.md terraform/storage-provider
       
       - name: Configure Git
         run: |
